@@ -1,0 +1,157 @@
+@model CareerRecommendationSystem.Models.CareerResultViewModel
+
+@{
+    ViewData["Title"] = "Career Results";
+}
+
+<div class="results-container">
+
+    <!-- Header -->
+    <section class="results-hero">
+        <div class="results-icon">🎓</div>
+
+        <span class="results-tag">AI CAREER ANALYSIS COMPLETED</span>
+
+        <h1>Your Career Recommendations</h1>
+
+        <p>
+            Congratulations, @Model.Student.FullName!
+            Here are your personalized career matches based on your
+            skills, interests, and academic performance.
+        </p>
+    </section>
+
+    <!-- Student Summary -->
+    <section class="student-summary">
+
+        <h3>👤 Your Profile</h3>
+
+        <div class="summary-grid">
+
+            <div class="summary-item">
+                <span>Full Name</span>
+                <strong>@Model.Student.FullName</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Email Address</span>
+                <strong>@Model.Student.Email</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Academic Percentage</span>
+                <strong>@Model.Student.Percentage%</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Area of Interest</span>
+                <strong>@Model.Student.Interest</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Programming Skills</span>
+                <strong>@Model.Student.ProgrammingSkill/100</strong>
+            </div>
+
+            <div class="summary-item">
+                <span>Work Preference</span>
+                <strong>@Model.Student.WorkPreference</strong>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Career Recommendations -->
+    <section class="recommendations-section">
+
+        <div class="recommendations-heading">
+            <div>
+                <span class="results-tag">PERSONALIZED FOR YOU</span>
+                <h2>Top 3 Career Matches</h2>
+                <p>Explore the career paths that match your profile.</p>
+            </div>
+
+            <div class="match-icon">🏆</div>
+        </div>
+
+        @if (Model.Recommendations != null &&
+             Model.Recommendations.Any())
+        {
+            var rank = 0;
+
+            @foreach (var career in Model.Recommendations)
+            {
+                rank++;
+
+                <div class="career-card">
+
+                    <div class="career-card-header">
+
+                        <div class="career-title">
+                            <span class="career-rank">
+                                #@rank
+                            </span>
+
+                            <h3>@career.CareerName</h3>
+                        </div>
+
+                        <div class="match-score">
+                            <strong>@career.MatchPercentage%</strong>
+                            <span>Match Score</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="match-progress">
+                        <div class="match-progress-fill"
+                             style="width: @(Math.Clamp(career.MatchPercentage, 0, 100))%">
+                        </div>
+                    </div>
+
+                    <p class="career-description">
+                        @career.Description
+                    </p>
+
+                    <div class="career-detail">
+                        <h4>💡 Required Skills</h4>
+                        <p>@career.RequiredSkills</p>
+                    </div>
+
+                    <div class="career-reason">
+                        <strong>Why this career matches you:</strong>
+                        <p>@career.Reason</p>
+                    </div>
+
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-info">
+                No career recommendations are available.
+                Please try the assessment again.
+            </div>
+        }
+
+    </section>
+
+    <!-- Action Buttons -->
+    <section class="results-actions">
+
+        <a asp-controller="Career"
+           asp-action="Index"
+           class="btn-start">
+            🔄 Try Again
+        </a>
+
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="btn-home">
+            🏠 Back to Home
+        </a>
+
+    </section>
+
+</div>
