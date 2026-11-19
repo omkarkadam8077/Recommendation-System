@@ -1,0 +1,39 @@
+@{
+    ViewData["Title"] = "Home";
+}
+
+<div class="hero-section">
+    <h1>AI-Powered Career Recommendation System</h1>
+
+    <p>
+        Discover your ideal career based on your skills,
+        interests and academic performance.
+    </p>
+
+    <a asp-controller="Career"
+       asp-action="Index"
+       class="btn-start">
+        Start Career Assessment
+    </a>
+</div>
+
+<div class="container mt-5">
+    <h2 class="text-center">How It Works</h2>
+
+    <div class="row mt-4 text-center">
+        <div class="col-md-4">
+            <h4>01. Enter Details</h4>
+            <p>Provide your academic and skill information.</p>
+        </div>
+
+        <div class="col-md-4">
+            <h4>02. Analyze Profile</h4>
+            <p>The system evaluates your interests and abilities.</p>
+        </div>
+
+        <div class="col-md-4">
+            <h4>03. Get Recommendations</h4>
+            <p>Explore your suitable career opportunities.</p>
+        </div>
+    </div>
+</div>
